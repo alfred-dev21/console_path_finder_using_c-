@@ -69,4 +69,53 @@ void setUp(char maze[rows][cols]){
 }
 
 
+/**
+ * Path Finder algorithm I am using is BFS
+ */
+vector<Node> bfs(){
+    vector<Node> path;
+    queue<Node> toVisit;
+
+    Node currNode = matrix[startx][starty];
+    Node goal = matrix[goalx][goaly];
+
+    int directions[4][2] = {
+        {1,0}, {0,1}, {-1,0}, {0,-1}
+    };
+    toVisit.push(currNode);
+
+    // while loop to find path
+    while (!toVisit.empty() && currNode.nodeN != goal.nodeN){
+        currNode = toVisit.front(); //dequeue
+        matrix[currNode.x][currNode.y].isVisited = true; // marked as visited
+        path.push_back(currNode);
+        toVisit.pop();
+
+        for (const auto& dir: directions){
+            int x = currNode.x + dir[0];
+            int y = currNode.y + dir[1];
+
+            Node nextNode = matrix[x][y];
+            if (nextNode.isObstacle == false && nextNode.isVisited == false){
+                nextNode.parentNode = currNode.nodeN;
+                toVisit.push(nextNode);
+            }
+        }
+    }
+
+    // This is backtracking
+    currNode = path[path.size() - 1];
+    for (int i = path.size() - 2; i > -1; --1){
+        Node nextNode = path[i];
+
+        if (currNode.parentNode != nextNode.nodeN){
+            path.erase(next(path.begin(), i));
+        }else{
+            currNode = nextNode;
+        }
+    }
+    return path;
+}
+
+
 
