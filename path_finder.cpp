@@ -15,6 +15,9 @@ using namespace std;
  * identifiable
  *      4. while doing path_finding algorithm each node must know it's parent
  */
+
+
+
 class Node{
     public:
         int x, y;
@@ -28,9 +31,17 @@ class Node{
 };
 
 
+vector<vector<Node>> matrix;
+const int rows = 15;
+const int cols = 15;
+int startx, starty, goalx, goaly;
+
+
+
 /**
  * setUp function
  * used to fill the maze with Node elements ith and jth positions
+ * @param maze is a string matrix from input
  */
 
 void setUp(char maze[rows][cols]){
@@ -38,7 +49,21 @@ void setUp(char maze[rows][cols]){
 
     for (int row = 0; i < rows; ++row){
         for (int col = 0; col < cols; ++col){
-            Node node(row, col, nodeNumber)
+            Node node(row, col, nodeNumber);
+
+            if (maze[row][col] == 'S'){ // checking the starting position
+                startx = i;
+                starty = j;
+            }else if (maze[row][col] == 'G'){ // checks the goal
+                goalx = i;
+                goaly = j;
+            }else if (maze[row][col] == 'X'){
+                node.isObstacle = true;
+            }
+
+            node.x = i; node.y = j;
+            matrix[i][j] = node;
+            nodeNumber++;
         }
     }
 }
