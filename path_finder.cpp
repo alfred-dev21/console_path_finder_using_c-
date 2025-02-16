@@ -26,3 +26,22 @@ class Node{
             : x(x), y(y), nodeN(nodeN), parentNode(-1), isObstacle(false),
             isVisited(false){}
 };
+
+
+/**
+ * setUp function
+ * used to fill the maze with Node elements ith and jth positions
+ */
+
+void setUp(char maze[rows][cols]){
+    int nodeNumber = 0; // node numbers start from zero
+
+    for (int row = 0; i < rows; ++row){
+        for (int col = 0; col < cols; ++col){
+            Node node(row, col, nodeNumber)
+        }
+    }
+}
+
+
+
