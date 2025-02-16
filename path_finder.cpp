@@ -15,9 +15,6 @@ using namespace std;
  * identifiable
  *      4. while doing path_finding algorithm each node must know it's parent
  */
-
-
-
 class Node{
     public:
         int x, y;
@@ -117,5 +114,55 @@ vector<Node> bfs(){
     return path;
 }
 
+
+/**
+ * printMaze function to print the solution to the console
+ * @param maze is the grid with strings
+ * @param path is the path found from bfs
+ */
+
+ void printMaze(char maze[rows][cols], vector<Node> path){
+    for (int i = 1; i < path.size() - 1; i++){
+        Node node = path[i];
+        maze[node.x][node.y] = '*';
+    }
+
+    for (int i = 0; i < rows; i++){
+        for (int j = 0; j < cols; j++){
+            cout << maze[i][j];
+        }
+        cout << endl;
+    }
+}
+
+
+int main(){
+    matrix.resize(rows, vector<Node>(cols, Node(0, 0, 0)));
+    char maze[rows][cols];
+
+    string input;
+    int a, b; // size of the matrix. for now we keeping it at 15 by 15
+    cin >> a >> b;
+    cin.ignore();
+
+    for (int i = 0; i < a; i++){
+        getline(cin, input);
+
+        for (int j = 0; j < b; j++){
+            maze[i][j] = input[j];
+        }
+    }
+
+    setUp(maze);
+    vector<Node> path = bfs();
+
+    if (path.empty()){
+        cout << "No Path Found" << endl;
+    }else{
+        printMaze(maze, path);
+    }
+
+    return 0;
+}
 
 
