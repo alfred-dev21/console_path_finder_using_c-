@@ -44,22 +44,22 @@ int startx, starty, goalx, goaly;
 void setUp(char maze[rows][cols]){
     int nodeNumber = 0; // node numbers start from zero
 
-    for (int row = 0; i < rows; ++row){
+    for (int row = 0; row < rows; ++row){
         for (int col = 0; col < cols; ++col){
             Node node(row, col, nodeNumber);
 
             if (maze[row][col] == 'S'){ // checking the starting position
-                startx = i;
-                starty = j;
+                startx = row;
+                starty = col;
             }else if (maze[row][col] == 'G'){ // checks the goal
-                goalx = i;
-                goaly = j;
+                goalx = row;
+                goaly = col;
             }else if (maze[row][col] == 'X'){
                 node.isObstacle = true;
             }
 
-            node.x = i; node.y = j;
-            matrix[i][j] = node;
+            node.x = row; node.y = col;
+            matrix[row][col] = node;
             nodeNumber++;
         }
     }
@@ -102,7 +102,7 @@ vector<Node> bfs(){
 
     // This is backtracking
     currNode = path[path.size() - 1];
-    for (int i = path.size() - 2; i > -1; --1){
+    for (int i = path.size() - 2; i > -1; --i){
         Node nextNode = path[i];
 
         if (currNode.parentNode != nextNode.nodeN){
